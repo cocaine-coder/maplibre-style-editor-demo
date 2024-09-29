@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import * as maplibre from 'maplibre-gl';
 import Interpolate from './components/Interpolate.vue';
+import Match from './components/Match.vue';
 
 let map: maplibre.Map;
 const loaded = ref(false);
@@ -9,6 +10,8 @@ const loaded = ref(false);
 onMounted(() => {
     map = new maplibre.Map({
         container: "map",
+        center: [100, 35],
+        zoom: 3,
         style: {
             version: 8,
             sources: {
@@ -47,16 +50,39 @@ onMounted(() => {
             }
         });
 
+        map.addLayer({
+            id: "china-fill",
+            type : 'fill',
+            source : {
+                type : 'geojson',
+                data : "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+            },
+            paint:{
+                "fill-opacity" : 0.5
+            },
+        });
+
+        map.addLayer({
+            id: "china-line",
+            type : 'line',
+            source : {
+                type : 'geojson',
+                data : "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json"
+            },
+            paint:{
+            },
+        });
+
+        // map.addControl(new MeasureControl() as any)
+
         loaded.value = true;
     })
-
-
 });
 </script>
 
 <template>
     <div id="controls" v-if="loaded">
-        <Interpolate :map="map" :layer="'line1100'" :value="{
+        <Interpolate :map="map" :layer="'china-line'" :value="{
             'line-color': ['interpolate', ['linear'], ['zoom'], 4, '#00ffff', 10, '#ff0000'],
             'line-width': ['interpolate', ['linear'], ['zoom'], 4, 1, 10, 10]
         }" :default-value="{
@@ -83,6 +109,12 @@ onMounted(() => {
                 </div>
             </template>
         </Interpolate>
+
+        <Match :map="map" layer="china-fill" property="fill-color" :p-value="['match', ['get', 'name']]" :default-value="'#ff0000'" :keys="['北京市', '天津市', '重庆市', '上海市']" >
+            <template #default="{data}">
+                <input type="color" v-model="data.value"> 
+            </template>
+        </Match>
     </div>
     <div id="map">
 
@@ -100,5 +132,8 @@ onMounted(() => {
     top: 20px;
     left: 20px;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
 }
 </style>
