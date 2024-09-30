@@ -515,6 +515,11 @@ entities@^4.5.0:
   resolved "https://registry.npmmirror.com/entities/-/entities-4.5.0.tgz#5d268ea5e7113ec74c4d033b79ea5a35a488fb48"
   integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
 
+es-toolkit@^1.22.0:
+  version "1.22.0"
+  resolved "https://registry.npmmirror.com/es-toolkit/-/es-toolkit-1.22.0.tgz#7799c087cc231d1a0059dc407c25bcd1bc58d31b"
+  integrity sha512-0mvZ7as1Irwi+i5BNTM4Lrt5NnZGz4TcMIG8FTUuqI6GswziFGPHrmVlK+kkafSqhofKKVs6gn0GSGZiWVxAHw==
+
 esbuild@^0.21.3:
   version "0.21.5"
   resolved "https://registry.npmmirror.com/esbuild/-/esbuild-0.21.5.tgz#9ca301b120922959b766360d8ac830da0d02997d"

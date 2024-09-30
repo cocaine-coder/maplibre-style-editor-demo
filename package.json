@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "es-toolkit": "^1.22.0",
     "maplibre-gl": "^4.7.1",
     "vue": "^3.4.37"
   },
