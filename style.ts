@@ -1,5 +1,5 @@
 import * as maplibregl from 'maplibre-gl';
-import { ref, Ref, toRaw, watch } from 'vue';
+import { ref, Ref, watch } from 'vue';
 
 export class LayerProxy {
     private declare vm: Ref<maplibregl.AddLayerObject>;
@@ -11,14 +11,18 @@ export class LayerProxy {
         //super();
     }
 
-    static create(map: maplibregl.Map, layer: maplibregl.AddLayerObject, beforeLayerId?: string) {
-        let ff: maplibregl.StyleSpecification
+    static create(map: maplibregl.Map, layer: maplibregl.AddLayerObject) {
         const proxy = new LayerProxy();
         proxy.vm = ref(layer) as any;
-        map.addLayer(layer, beforeLayerId);
 
         watch(() => (proxy.vm.value as any)['paint'], a => {
-            console.warn(a);
+            // console.warn(proxy.vm.value,a); 
+
+            for (const v in a) { 
+                 map.setPaintProperty(proxy.vm.value.id, v, a[v]);
+            }
+           
+            
         }, { deep: true });
 
         return proxy;

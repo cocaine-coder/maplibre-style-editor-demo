@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import * as maplibre from 'maplibre-gl';
+import maplibre from 'maplibre-gl';
 import Interpolate from './components/Interpolate.vue';
 import Match from './components/Match.vue';
 
 import {LayerProxy} from '../style';
+
+import './MaplibrePlugin';
 
 let map: maplibre.Map;
 const loaded = ref(false);
@@ -45,7 +47,7 @@ onMounted(() => {
             },
         });
 
-        const layerProxy = LayerProxy.create(map,{
+        map.addLayer({
             id: "china-line",
             type : 'line',
             source : {
@@ -57,7 +59,9 @@ onMounted(() => {
         });
 
         setInterval(() => {
-            (layerProxy.value as maplibregl.LineLayerSpecification).paint!['line-width'] = Math.random() * 10;
+            map.layerProxies.get("china-line")!.value.paint!['line-width'] = Math.random() * 10;
+ 
+            console.log( map.layerProxies.get("china-line")!.value,(map.getStyle().layers))
         }, 1000);
 
         // map.addControl(new MeasureControl() as any)
