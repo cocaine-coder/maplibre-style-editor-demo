@@ -4,6 +4,8 @@ import * as maplibre from 'maplibre-gl';
 import Interpolate from './components/Interpolate.vue';
 import Match from './components/Match.vue';
 
+import {LayerProxy} from '../style';
+
 let map: maplibre.Map;
 const loaded = ref(false);
 
@@ -30,25 +32,6 @@ onMounted(() => {
     });
 
     map.on('load', () => {
-        map.addLayer({
-            id: 'line1100',
-            type: 'line',
-            source: {
-                'type': 'geojson',
-                data: {
-                    type: 'LineString',
-                    coordinates: [
-                        [-100, 40],
-                        [-50, 40],
-                        [-50, 50],
-                        [-100, 50]
-                    ]
-                }
-            },
-            paint: {
-                "line-width": 1
-            }
-        });
 
         map.addLayer({
             id: "china-fill",
@@ -62,7 +45,7 @@ onMounted(() => {
             },
         });
 
-        map.addLayer({
+        const layerProxy = LayerProxy.create(map,{
             id: "china-line",
             type : 'line',
             source : {
@@ -73,10 +56,14 @@ onMounted(() => {
             },
         });
 
+        setInterval(() => {
+            (layerProxy.value as maplibregl.LineLayerSpecification).paint!['line-width'] = Math.random() * 10;
+        }, 1000);
+
         // map.addControl(new MeasureControl() as any)
 
         loaded.value = true;
-    })
+    });
 });
 </script>
 
