@@ -62,7 +62,7 @@ onMounted(() => {
             map.layerProxies.get("china-line")!.value.paint!['line-width'] = Math.random() * 10;
  
             console.log( map.layerProxies.get("china-line")!.value,(map.getStyle().layers))
-        }, 1000);
+        }, 10000);
 
         // map.addControl(new MeasureControl() as any)
 
