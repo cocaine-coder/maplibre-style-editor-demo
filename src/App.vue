@@ -14,8 +14,8 @@ const loaded = ref(false);
 onMounted(() => {
     map = new maplibre.Map({
         container: "map",
-        center: [100, 35],
-        zoom: 3,
+        // center: [100, 35],
+        // zoom: 3,
         style: {
             version: 8,
             sources: {
@@ -59,9 +59,9 @@ onMounted(() => {
         });
 
         setInterval(() => {
-            map.layerProxies.get("china-line")!.value.paint!['line-width'] = Math.random() * 10;
+            // map.layerProxies.get("china-line")!.value.paint!['line-width'] = Math.random() * 10;
  
-            console.log( map.layerProxies.get("china-line")!.value,(map.getStyle().layers))
+            // console.log( map.layerProxies.get("china-line")!.value,(map.getStyle().layers))
         }, 10000);
 
         // map.addControl(new MeasureControl() as any)

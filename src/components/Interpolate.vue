@@ -28,7 +28,7 @@
                 <div class="slider-cursor-item ball" v-for="i in (maxZoom - minZoom + 1)" :key="i" :style="{
                     left: calCursorLeft(i) + 'px',
                     opacity: marks[i] !== undefined || triggerHoverKey === i ? 1 : 0,
-                    background: activeMarkKey === i ? 'red' : '#ccc'
+                    background: activeMarkKey === i ? '#111' : '#ccc'
                 }">
                 </div>
             </div>
